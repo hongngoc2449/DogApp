@@ -5,11 +5,13 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -52,7 +54,7 @@ public class ListFragment extends Fragment {
         dogBreeds = new ArrayList<DogBreed>();
         dogsAdapter = new DogsAdapter(dogBreeds);
         rvDogs.setAdapter(dogsAdapter);
-        rvDogs.setLayoutManager(new LinearLayoutManager(getContext()));
+        rvDogs.setLayoutManager(new GridLayoutManager(getContext(),2));
         apiService = new DogsApiService();
         apiService.getDogs()
                 .subscribeOn(Schedulers.newThread())
@@ -65,11 +67,11 @@ public class ListFragment extends Fragment {
                             dogsAdapter.notifyDataSetChanged();
                         }
                     }
-
                     @Override
                     public void onError(@io.reactivex.rxjava3.annotations.NonNull Throwable e) {
-                        Log.d("DEBUG",e.getMessage());
+                        Log.d("DEBUG1",e.getMessage());
                     }
                 });
+
     }
 }
